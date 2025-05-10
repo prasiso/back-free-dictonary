@@ -35,5 +35,5 @@ O objetivo do projeto é um dicionário de palavras em inglês
 
 
 ### Swagger
-    - Dentro da pasta swagger de cada end point deve se colocar para o que serve api e response dele
-    - Deve se colocar o decorator response global contendo os erros 401 e 500, junto com a resposta de cada end point pode ter
+- Dentro da pasta swagger de cada end point deve se colocar para o que serve api e response dele
+- Deve se colocar o decorator response global contendo os erros 401 e 500, junto com a resposta de cada end point pode ter
