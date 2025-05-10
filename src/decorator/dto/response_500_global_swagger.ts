@@ -1,16 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { ResponseErroGlobalSwagger } from './response_erro_global_swagger';
 
-export class Resp500GlobalSwagger {
-  @ApiProperty({
-    example: '2025-05-10T20:17:37.186Z',
-    description: 'Data de envio da request',
-  })
-  timestamp: Date;
-  @ApiProperty({
-    example: '/',
-    description: 'Caminho do end point',
-  })
-  path: string;
+export class Resp500GlobalSwagger extends ResponseErroGlobalSwagger {
   @ApiProperty({
     example:
       '⚠️ Ocorreu um erro inesperado. Estamos trabalhando para resolver o mais rápido possível.',

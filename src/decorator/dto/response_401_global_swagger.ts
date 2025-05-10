@@ -1,16 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { ResponseErroGlobalSwagger } from './response_erro_global_swagger';
 
-export class Resp401GlobalSwagger {
-  @ApiProperty({
-    example: '2025-05-10T20:17:37.186Z',
-    description: 'Data de envio da request',
-  })
-  timestamp: Date;
-  @ApiProperty({
-    example: '/',
-    description: 'Caminho do end point',
-  })
-  path: string;
+export class Resp401GlobalSwagger extends ResponseErroGlobalSwagger {
   @ApiProperty({
     example: 'Não autorizado!',
     description: 'Descrição de erro',
