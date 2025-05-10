@@ -1,0 +1,1 @@
+export * from './response_global_swagger'
