@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { HealthModule, AuthModule, UserModule, EntrieModule } from './modules';
 import { PrismaModule } from './database/prisma.module';
-import { DictionaryModule, JwtModule } from './services';
+import { DictionaryModule, JwtModule, HistoryModule } from './services';
 import { AuthGuard } from './guard';
 import { APP_GUARD } from '@nestjs/core';
 
@@ -13,7 +13,8 @@ import { APP_GUARD } from '@nestjs/core';
     EntrieModule,
     PrismaModule,
     JwtModule,
-    DictionaryModule
+    DictionaryModule,
+    HistoryModule
   ],
   providers: [
     {

@@ -4,12 +4,13 @@ import { EntriesService } from './entries.service';
 import { Prisma } from '@prisma/client';
 import { pagination_helper, pagination_prisma } from 'src/helper';
 import { JwtPayload } from 'src/interface/jwt-payload';
-import { DictionaryService } from 'src/services';
+import { DictionaryService, HistoryService } from 'src/services';
 @Injectable()
 export class EntriesController {
   constructor(
     private readonly entries: EntriesService,
     private readonly free_dictionary: DictionaryService,
+    private readonly history: HistoryService,
   ) {}
   async find_all(query: QueryFindAllDto) {
     const { limit, page, search, order } = query;
@@ -48,6 +49,10 @@ export class EntriesController {
     }
     const resp = data.pop();
     resp.meanings.push(...data.flatMap((item) => item.meanings));
+    await this.history.create({
+      id_entrie: entrie.id_entrie,
+      id_user: user.id_user,
+    });
     return resp;
   }
 }
