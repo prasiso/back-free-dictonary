@@ -2,19 +2,19 @@ import { applyDecorators } from '@nestjs/common';
 import { ApiResponse } from '@nestjs/swagger';
 import { ResponseGlobalSwagger } from 'src/decorator/response_global_swagger';
 import {
-  RespFindAllEntries200Dto,
-  RespFindAllEntries400Dto,
+  RespFindOneEntrie200Dto,
+  RespFindOneEntrie404Dto,
 } from './dto-response';
 export const ResponseSwagger = () => {
   return applyDecorators(
-    ResponseGlobalSwagger(false),
+    ResponseGlobalSwagger(),
     ApiResponse({
       status: 400,
-      type: RespFindAllEntries400Dto,
+      type: RespFindOneEntrie404Dto,
     }),
     ApiResponse({
       status: 200,
-      type: RespFindAllEntries200Dto,
+      type: RespFindOneEntrie200Dto,
     }),
   );
 };
