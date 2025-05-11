@@ -14,7 +14,7 @@ const main = async () => {
         skipDuplicates: true
       });
     },
-    { timeout: 10000000 },
+    { timeout: 20000 },
   );
 };
 main();
