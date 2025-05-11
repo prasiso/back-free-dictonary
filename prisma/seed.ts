@@ -1,0 +1,20 @@
+import { timeout } from 'rxjs';
+import { PrismaService } from '../src/database/prisma.service';
+import fs from 'fs';
+const prisma = new PrismaService();
+
+const main = async () => {
+  const data: any = await fs.readFileSync('mock/english.txt', 'utf-8');
+  const rows = data.split('\n');
+  await prisma.$transaction(
+    async (tx: PrismaService) => {
+      const word = rows.map((entrie) => ({ entrie }));
+      await tx.entries.createMany({
+        data: word,
+        skipDuplicates: true
+      });
+    },
+    { timeout: 20000 },
+  );
+};
+main();
