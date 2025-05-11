@@ -4,8 +4,8 @@ import { ResponseSwagger } from './response';
 export const Swagger = () => {
   return applyDecorators(
     ApiOperation({
-      summary: 'Cadastro',
-      description: 'Responsavel por cadastro de user',
+      summary: 'Logar',
+      description: 'Responsável por login de user',
     }),
     ResponseSwagger(),
   );

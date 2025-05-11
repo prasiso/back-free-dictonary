@@ -1,7 +1,7 @@
 import {
-  BadRequestException,
   ConflictException,
   Injectable,
+  NotFoundException,
 } from '@nestjs/common';
 import { UserService } from '../user';
 import { SigninDto, SignUpDto } from './dto';
@@ -36,12 +36,12 @@ export class AuthController {
       },
     });
     if (!user)
-      throw new ConflictException(
+      throw new NotFoundException(
         'O e-mail informado não foi encontrado em nosso sistema. Por favor, verifique e tente novamente.',
       );
     const is_valid_pass = await this.hash.compare(body.password, user.password);
     if (!is_valid_pass)
-      throw new BadRequestException(
+      throw new NotFoundException(
         'As senhas não coincidem. Por favor, tente novamente.',
       );
     return await this.auth.sign_in(user);
