@@ -19,6 +19,6 @@ export class UserService {
 
   async create(body: Prisma.userCreateInput) {
     body.password = await this.hash.encrypt(body.password);
-    return await this.user_service.create(body, { omit: { password: true } });
+    return await this.user_service.create(body);
   }
 }
