@@ -8,6 +8,11 @@ export class EntriesRepository {
     return await this.prisma.entries.findMany(params);
   }
 
+  async find_one(params: Prisma.entriesFindFirstArgs) {
+    return await this.prisma.entries.findFirst(params);
+  }
+
+
   async count(params: Prisma.entriesCountArgs) {
     return await this.prisma.entries.count(params);
   }
