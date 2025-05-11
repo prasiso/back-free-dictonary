@@ -4,9 +4,13 @@ import { EntriesService } from './entries.service';
 import { Prisma } from '@prisma/client';
 import { pagination_helper, pagination_prisma } from 'src/helper';
 import { JwtPayload } from 'src/interface/jwt-payload';
+import { DictionaryService } from 'src/services';
 @Injectable()
 export class EntriesController {
-  constructor(private readonly entries: EntriesService) {}
+  constructor(
+    private readonly entries: EntriesService,
+    private readonly free_dictionary: DictionaryService,
+  ) {}
   async find_all(query: QueryFindAllDto) {
     const { limit, page, search, order } = query;
     const params: Prisma.entriesFindManyArgs = {
@@ -35,7 +39,15 @@ export class EntriesController {
     return data;
   }
   async find_one(word: string, user: JwtPayload) {
+    word = word.trim();
     const entrie = await this.entries.find_one(word);
     if (!entrie) throw new NotFoundException('Não foi encontrada palavra');
+    const { data } = await this.free_dictionary.search_in_free_dictionary(word);
+    if (!data?.length) {
+      throw new NotFoundException('Não foi encontrada palavra');
+    }
+    const resp = data.pop();
+    resp.meanings.push(...data.flatMap((item) => item.meanings));
+    return resp;
   }
 }
