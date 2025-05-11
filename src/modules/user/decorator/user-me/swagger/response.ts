@@ -4,7 +4,7 @@ import { ResponseGlobalSwagger } from 'src/decorator/response_global_swagger';
 import { RespHealth200Dto } from './dto-response';
 export const ResponseSwagger = () => {
   return applyDecorators(
-    ResponseGlobalSwagger(false),
+    ResponseGlobalSwagger(),
     ApiResponse({
       status: 200,
       type: RespHealth200Dto

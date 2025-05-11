@@ -6,7 +6,7 @@ import { getUser } from 'src/decorator';
 import { JwtPayload } from 'src/interface/jwt-payload';
 
 @Controller('user')
-@ApiTags('user')
+@ApiTags('Usuário')
 export class UserRouter {
   constructor(private readonly user: UserController) {}
   @d_user_me()

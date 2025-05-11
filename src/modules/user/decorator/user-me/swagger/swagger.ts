@@ -4,8 +4,8 @@ import { ResponseSwagger } from './response';
 export const Swagger = () => {
   return applyDecorators(
     ApiOperation({
-      summary: 'Health Router',
-      description: 'Responsável por end point health',
+      summary: 'Dados de usuário logado',
+      description: 'Responsável por end point de usuário',
     }),
     ResponseSwagger(),
   );
