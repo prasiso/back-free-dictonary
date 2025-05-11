@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { QueryFindAllDto } from './dto';
 import { EntriesService } from './entries.service';
 import { Prisma } from '@prisma/client';
@@ -44,10 +48,14 @@ export class EntriesController {
     );
     return data;
   }
-  async find_one(word: string, user: JwtPayload) {
+  async valid_word(word: string) {
     word = word.trim();
     const entrie = await this.entries.find_one(word);
     if (!entrie) throw new NotFoundException('Não foi encontrada palavra');
+    return entrie;
+  }
+  async find_one(word: string, user: JwtPayload) {
+    const entrie = await this.valid_word(word);
     const { data } = await this.free_dictionary.search_in_free_dictionary(word);
     if (!data?.length) {
       throw new NotFoundException('Não foi encontrada palavra');
@@ -62,12 +70,31 @@ export class EntriesController {
   }
 
   async favorite(word: string, user: JwtPayload) {
-    word = word.trim();
-    const entrie = await this.entries.find_one(word);
-    if (!entrie) throw new NotFoundException('Não foi encontrada palavra');
+    const entrie = await this.valid_word(word);
+    const favorite = await this.favorite_service.find_one({
+      id_entrie: entrie.id_entrie,
+      id_user: user.id_user,
+    });
+    if (favorite)
+      throw new BadRequestException(
+        'A palavra em questão já se encontra entre os itens favoritos.',
+      );
     await this.favorite_service.create({
       id_entrie: entrie.id_entrie,
       id_user: user.id_user,
+    });
+  }
+
+  async unfavorite(word: string, user: JwtPayload) {
+    const entrie = await this.valid_word(word);
+    const favorite = await this.favorite_service.find_one({
+      id_entrie: entrie.id_entrie,
+      id_user: user.id_user,
+    });
+    if (!favorite)
+      throw new NotFoundException('Não foi encontrada palavra favoritada');
+    await this.favorite_service.delete({
+      id_entries_fav: favorite.id_entries_fav,
     });
   }
 }

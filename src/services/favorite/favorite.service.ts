@@ -12,4 +12,21 @@ export class FavoriteService {
       },
     });
   }
+
+  async find_one({ id_entrie, id_user }) {
+    return await this.prisma.entries_fav.findFirst({
+      where: {
+        id_entrie,
+        id_user,
+      },
+    });
+  }
+
+  async delete({ id_entries_fav }) {
+    return await this.prisma.entries_fav.delete({
+      where: {
+        id_entries_fav,
+      },
+    });
+  }
 }
