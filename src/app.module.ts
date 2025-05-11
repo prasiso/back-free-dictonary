@@ -15,7 +15,7 @@ import { APP_GUARD } from '@nestjs/core';
     JwtModule,
     DictionaryModule,
     HistoryModule,
-    FavoriteModule
+    FavoriteModule,
   ],
   providers: [
     {
