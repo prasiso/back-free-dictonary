@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class Resp200Dto {
+export class RespHealth200Dto {
   @ApiProperty({
     example: 'Fullstack Challenge 🏅 - Dictionary',
     description: 'Mensagem de health',

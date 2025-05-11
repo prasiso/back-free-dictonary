@@ -1,13 +1,13 @@
 import { applyDecorators } from '@nestjs/common';
 import { ApiResponse } from '@nestjs/swagger';
 import { ResponseGlobalSwagger } from 'src/decorator/response_global_swagger';
-import { Resp200Dto } from './dto-response';
+import { RespHealth200Dto } from './dto-response';
 export const ResponseSwagger = () => {
   return applyDecorators(
     ResponseGlobalSwagger(false),
     ApiResponse({
       status: 200,
-      type: Resp200Dto
+      type: RespHealth200Dto
     }),
   );
 };
