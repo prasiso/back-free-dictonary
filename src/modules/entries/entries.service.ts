@@ -12,4 +12,12 @@ export class EntriesService {
     ]);
     return { count, rows };
   }
+
+  async find_one(word?: string, params?: Prisma.entriesFindFirstArgs) {
+    if (!word && !params) return null;
+    params ??= {};
+    params.where ??= {};
+    if (word) params.where.entrie = word;
+    return await this.entries.find_one(params)
+  }
 }

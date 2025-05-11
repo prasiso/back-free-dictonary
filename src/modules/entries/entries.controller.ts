@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { QueryFindAllDto } from './dto';
 import { EntriesService } from './entries.service';
 import { Prisma } from '@prisma/client';
 import { pagination_helper, pagination_prisma } from 'src/helper';
+import { JwtPayload } from 'src/interface/jwt-payload';
 @Injectable()
 export class EntriesController {
   constructor(private readonly entries: EntriesService) {}
@@ -32,5 +33,9 @@ export class EntriesController {
       rows.map(({ entrie }) => entrie),
     );
     return data;
+  }
+  async find_one(word: string, user: JwtPayload) {
+    const entrie = await this.entries.find_one(word);
+    if (!entrie) throw new NotFoundException('Não foi encontrada palavra');
   }
 }
