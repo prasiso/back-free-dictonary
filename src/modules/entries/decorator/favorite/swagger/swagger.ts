@@ -4,8 +4,8 @@ import { ResponseSwagger } from './response';
 export const Swagger = () => {
   return applyDecorators(
     ApiOperation({
-      summary: 'Buscar Palavras',
-      description: 'Responsável por buscar todas as palavras',
+      summary: 'Favoritar Palavra',
+      description: 'Responsável por favoritar palavara do usuário',
     }),
     ApiBearerAuth(),
     ResponseSwagger(),
