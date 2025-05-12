@@ -4,8 +4,9 @@ import { ResponseSwagger } from './response';
 export const Swagger = () => {
   return applyDecorators(
     ApiOperation({
-      summary: 'Dados de usuário logado',
-      description: 'Responsável por end point de usuário',
+      summary: 'Dados das últimas palavras acessadas',
+      description:
+        'End point responsável por listar últimas palavras acessadas do usuário',
     }),
     ResponseSwagger(),
   );

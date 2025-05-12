@@ -36,7 +36,6 @@ export class UserController {
         },
         created_at: true,
       },
-      distinct: 'id_entrie',
       ...pagination_prisma(+limit, +page),
     };
     if (order) {
