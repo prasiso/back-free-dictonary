@@ -13,7 +13,10 @@ O objetivo do projeto é um dicionário de palavras em inglês
 ### Dia 1
  - Feito um docker com imagem de postgres e build do app
  - Modular o Banco
- - Adicionado Swagger com estrutura do crud que ser usado no projeto
+ - Adicionado Swagger com estrutura do crud que deve ser usado no projeto
+### Dia 2
+ - Feito os end points de auth, user e entries
+ - Terminado a documentação   
 
 
 ## Estrutura
