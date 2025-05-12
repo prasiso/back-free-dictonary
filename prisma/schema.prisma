@@ -11,7 +11,7 @@ datasource db {
 model entries {
   id_entrie           Int                   @id(map: "entries_pk") @default(autoincrement())
   entrie              String                @unique(map: "entries_unique") @db.VarChar
-  created_at          DateTime              @default(now()) @db.Date
+  created_at          DateTime              @default(now()) @db.Timestamp()
   entries_fav         entries_fav[]
   history_read_entrie history_read_entrie[]
 }
@@ -20,6 +20,7 @@ model entries_fav {
   id_entries_fav Int     @id(map: "entries_fav_pk") @default(autoincrement())
   id_user        Int
   id_entrie      Int
+  created_at          DateTime              @default(now()) @db.Timestamp()
   entries        entries @relation(fields: [id_entrie], references: [id_entrie], onDelete: NoAction, onUpdate: NoAction, map: "fk_entries_user")
   user           user    @relation(fields: [id_user], references: [id_user], onDelete: NoAction, onUpdate: NoAction, map: "fk_user_entries")
 }
@@ -29,7 +30,7 @@ model user {
   name                String                @db.VarChar
   password            String                @db.VarChar
   email               String                @unique(map: "user_unique") @db.VarChar
-  created_at          DateTime              @default(now()) @db.Date
+  created_at          DateTime              @default(now()) @db.Timestamp()
   entries_fav         entries_fav[]
   history_read_entrie history_read_entrie[]
 }
