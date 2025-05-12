@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/database/prisma.service';
+import { Favorite } from './interface/favorite';
 
 @Injectable()
 export class FavoriteService {
@@ -20,6 +22,16 @@ export class FavoriteService {
         id_user,
       },
     });
+  }
+  async find_all(
+    params: Prisma.entries_favFindManyArgs,
+  ): Promise<{ count: number; rows: Favorite[] }> {
+    const { where, ...rest } = params;
+    const [count, rows] = await Promise.all([
+      this.prisma.entries_fav.count({ where }),
+      this.prisma.entries_fav.findMany({ ...rest, where }),
+    ]);
+    return { count, rows };
   }
 
   async delete({ id_entries_fav }) {
