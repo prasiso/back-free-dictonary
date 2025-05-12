@@ -12,7 +12,7 @@ class WordResultDto {
   added: string;
 }
 
-export class RespHistory200Dto {
+export class RespFavorite200Dto {
   @ApiProperty({ type: [WordResultDto] })
   results: WordResultDto[];
 
