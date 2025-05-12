@@ -1,6 +1,6 @@
 import { applyDecorators, Get } from '@nestjs/common';
 import { Swagger } from './swagger';
 
-export function d_user_me() {
-  return applyDecorators(Get(), Swagger());
+export function d_history() {
+  return applyDecorators(Get('history'), Swagger());
 }
