@@ -6,7 +6,7 @@ import {
 import { QueryFindAllDto } from './dto';
 import { EntriesService } from './entries.service';
 import { Prisma } from '@prisma/client';
-import { pagination_helper, pagination_prisma } from 'src/helper';
+import { change_body_entrie, pagination_helper, pagination_prisma } from 'src/helper';
 import { JwtPayload } from 'src/interface/jwt-payload';
 import {
   DictionaryService,
@@ -66,7 +66,9 @@ export class EntriesController {
       id_entrie: entrie.id_entrie,
       id_user: user.id_user,
     });
-    return resp;
+    const body = change_body_entrie(resp)
+
+    return body;
   }
 
   async favorite(word: string, user: JwtPayload) {
