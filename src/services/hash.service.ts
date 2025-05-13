@@ -8,6 +8,6 @@ export class HashService {
     return await bcrypt.hash(password, this.salt_or_rounds);
   }
   async compare(password: string, hash: string) {
-    return await bcrypt.hash(password, hash);
+    return await bcrypt.compareSync(password, hash);
   }
 }
