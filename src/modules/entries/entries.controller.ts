@@ -24,7 +24,7 @@ export class EntriesController {
     private readonly free_dictionary: DictionaryService,
     private readonly history: HistoryService,
     private readonly favorite_service: FavoriteService,
-  ) {}
+  ) { }
   async find_all(query: QueryFindAllDto) {
     const { limit, page, search, order } = query;
     const params: Prisma.entriesFindManyArgs = {
@@ -60,14 +60,19 @@ export class EntriesController {
   }
   async find_one(word: string, user: JwtPayload) {
     const entrie = await this.valid_word(word);
-    const { data } = await this.free_dictionary.search_in_free_dictionary(
-      encodeURIComponent(word),
-    );
-    if (!data?.length) {
+    let entries = []
+    try {
+      const { data } = await this.free_dictionary.search_in_free_dictionary(
+        encodeURIComponent(word),
+      );
+      entries = data
+    } catch { }
+
+    if (!entries?.length) {
       throw new NotFoundException('Não foi encontrada palavra');
     }
-    const resp = data.pop();
-    resp.meanings.push(...data.flatMap((item) => item.meanings));
+    const resp = entries.pop();
+    resp.meanings.push(...entries.flatMap((item) => item.meanings));
     await this.history.create({
       id_entrie: entrie.id_entrie,
       id_user: user.id_user,
