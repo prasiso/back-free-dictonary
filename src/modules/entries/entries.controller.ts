@@ -69,7 +69,7 @@ export class EntriesController {
     } catch { }
 
     if (!entries?.length) {
-      throw new NotFoundException('Não foi encontrada palavra');
+      throw new NotFoundException('Não foi encontrada definição para palavra');
     }
     const resp = entries.pop();
     resp.meanings.push(...entries.flatMap((item) => item.meanings));
