@@ -12,7 +12,13 @@ export function change_body_entrie(resp: WordEntry): any {
   const data = {
     word: resp.word,
     phonetic: resp.phonetic,
-    audio: resp.phonetics.find((audio) => audio.audio),
+    audio: resp.phonetics.map((ph) => {
+      if (!ph.audio) return ph;
+      const audio = ph.audio.split('.');
+      const country = audio[audio.length - 2].split('-').pop();
+      ph.country = country
+      return ph;
+    }),
     meanings,
   };
   return data;

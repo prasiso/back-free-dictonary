@@ -8,6 +8,7 @@ export interface WordEntry {
 
 interface Phonetic {
   text: string;
+  country: string;
   audio?: string;
 }
 

@@ -6,7 +6,11 @@ import {
 import { QueryFindAllDto } from './dto';
 import { EntriesService } from './entries.service';
 import { Prisma } from '@prisma/client';
-import { change_body_entrie, pagination_helper, pagination_prisma } from 'src/helper';
+import {
+  change_body_entrie,
+  pagination_helper,
+  pagination_prisma,
+} from 'src/helper';
 import { JwtPayload } from 'src/interface/jwt-payload';
 import {
   DictionaryService,
@@ -56,7 +60,9 @@ export class EntriesController {
   }
   async find_one(word: string, user: JwtPayload) {
     const entrie = await this.valid_word(word);
-    const { data } = await this.free_dictionary.search_in_free_dictionary(word);
+    const { data } = await this.free_dictionary.search_in_free_dictionary(
+      encodeURIComponent(word),
+    );
     if (!data?.length) {
       throw new NotFoundException('Não foi encontrada palavra');
     }
@@ -66,7 +72,7 @@ export class EntriesController {
       id_entrie: entrie.id_entrie,
       id_user: user.id_user,
     });
-    const body = change_body_entrie(resp)
+    const body = change_body_entrie(resp);
 
     return body;
   }
