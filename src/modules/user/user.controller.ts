@@ -24,7 +24,7 @@ export class UserController {
     const { limit, page, search, order } = query;
     const params: Prisma.history_read_entrieFindManyArgs = {
       orderBy: {
-        created_at: 'asc',
+        created_at: 'desc',
       },
       where: {
         id_user: user.id_user,
@@ -70,7 +70,7 @@ export class UserController {
     const { limit, page, search, order } = query;
     const params: Prisma.entries_favFindManyArgs = {
       orderBy: {
-        created_at: 'asc',
+        created_at: 'desc',
       },
       where: {
         id_user: user.id_user,
