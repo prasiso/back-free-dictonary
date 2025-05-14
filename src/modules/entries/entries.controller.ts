@@ -18,6 +18,7 @@ import {
   FavoriteService,
   HistoryService,
 } from 'src/services';
+import { opt_valid_word } from './utils/opt_valid_word';
 @Injectable()
 export class EntriesController {
   constructor(
@@ -25,7 +26,7 @@ export class EntriesController {
     private readonly free_dictionary: DictionaryService,
     private readonly history: HistoryService,
     private readonly favorite_service: FavoriteService,
-  ) { }
+  ) {}
   async find_all(query: QueryFindAllDto) {
     const { limit, page, search, order } = query;
     const params: Prisma.entriesFindManyArgs = {
@@ -55,10 +56,10 @@ export class EntriesController {
     const isWord = data.results.some((row) => compare_word(row, search));
     if (isWord) {
       const ind = data.results.findIndex((ind) => ind === search);
-      const item = String(data.results[ind])
-      data.results.splice(ind, 1)
-      data.results.splice(0, 0, item)
-      return data
+      const item = String(data.results[ind]);
+      data.results.splice(ind, 1);
+      data.results.splice(0, 0, item);
+      return data;
     }
     const word = await this.entries.find_one(search, {
       select: { entrie: true },
@@ -68,21 +69,25 @@ export class EntriesController {
     data.results.unshift(word.entrie);
     return data;
   }
-  async valid_word(word: string) {
+  async valid_word(word: string, user?: JwtPayload) {
     word = word.trim();
-    const entrie = await this.entries.find_one(word);
+    let opt: Prisma.entriesFindFirstArgs | undefined = undefined;
+    if (user) {
+      opt = opt_valid_word(user);
+    }
+    const entrie = await this.entries.find_one(word, opt);
     if (!entrie) throw new NotFoundException('Não foi encontrada palavra');
     return entrie;
   }
   async find_one(word: string, user: JwtPayload) {
-    const entrie = await this.valid_word(word);
+    const entrie = await this.valid_word(word, user);
     let entries = [];
     try {
       const { data } = await this.free_dictionary.search_in_free_dictionary(
         encodeURIComponent(word),
       );
       entries = data;
-    } catch { }
+    } catch {}
 
     if (!entries?.length) {
       throw new NotFoundException('Não foi encontrada definição para palavra');
@@ -94,7 +99,21 @@ export class EntriesController {
       id_user: user.id_user,
     });
     const body = change_body_entrie(resp);
-
+    const { entries_fav, history_read_entrie } = entrie as any;
+    if (entries_fav[0]) {
+      const fav = entries_fav[0];
+      body.fav = {
+        id_entries_fav: fav.id_entries_fav,
+        created_at: fav.created_at,
+      };
+    }
+    if (history_read_entrie[0]) {
+      const history = history_read_entrie[0];
+      body.history = {
+        id_history_read_entrie: history.id_history_read_entrie,
+        created_at: history.created_at,
+      };
+    }
     return body;
   }
 
