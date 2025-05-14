@@ -8,6 +8,7 @@ import { EntriesService } from './entries.service';
 import { Prisma } from '@prisma/client';
 import {
   change_body_entrie,
+  compare_word,
   pagination_helper,
   pagination_prisma,
 } from 'src/helper';
@@ -50,6 +51,21 @@ export class EntriesController {
       count,
       rows.map(({ entrie }) => entrie),
     );
+    if (!search || page !== 1) return data;
+    const isWord = data.results.some((row) => compare_word(row, search));
+    if (isWord) {
+      const ind = data.results.findIndex((ind) => ind === search);
+      const item = String(data.results[ind])
+      data.results.splice(ind, 1)
+      data.results.splice(0, 0, item)
+      return data
+    }
+    const word = await this.entries.find_one(search, {
+      select: { entrie: true },
+    });
+    if (!word) return data;
+    data.results.pop();
+    data.results.unshift(word.entrie);
     return data;
   }
   async valid_word(word: string) {
@@ -60,12 +76,12 @@ export class EntriesController {
   }
   async find_one(word: string, user: JwtPayload) {
     const entrie = await this.valid_word(word);
-    let entries = []
+    let entries = [];
     try {
       const { data } = await this.free_dictionary.search_in_free_dictionary(
         encodeURIComponent(word),
       );
-      entries = data
+      entries = data;
     } catch { }
 
     if (!entries?.length) {
