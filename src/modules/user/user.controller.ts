@@ -16,7 +16,7 @@ export class UserController {
     const data = await this.user_service.find_one(user.id_user, {
       omit: { password: true },
     });
-    if (!data) throw new NotFoundException('Não foi encontrado usuário');
+    if (!data) throw new NotFoundException('No user found');
     return data;
   }
 

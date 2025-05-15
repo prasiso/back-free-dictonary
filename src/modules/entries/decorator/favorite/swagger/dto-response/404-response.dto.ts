@@ -3,7 +3,7 @@ import { ResponseErroGlobalSwagger } from 'src/decorator/dto';
 
 export class RespFavoriteEntries404Dto extends ResponseErroGlobalSwagger {
   @ApiProperty({
-    example: 'Não foi encontrada palavra',
+    example: 'No word found',
   })
   message: any;
   @ApiProperty({ example: 404 })

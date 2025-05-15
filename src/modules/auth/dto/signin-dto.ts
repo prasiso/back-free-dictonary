@@ -4,12 +4,12 @@ import { IsValidPassword } from 'src/decorator';
 
 export class SigninDto {
   @ApiProperty({ example: 'test' })
-  @IsNotEmpty({ message: 'Campo Senha não pode ser vazio' })
+  @IsNotEmpty({ message: 'Password field cannot be empty' })
   password: string;
 
   @ApiProperty()
   @IsEmail()
   @ApiProperty({ example: 'example@email.com' })
-  @IsNotEmpty({ message: 'Campo email não pode ser vazio' })
+  @IsNotEmpty({ message: 'Email field cannot be empty' })
   email: string;
 }

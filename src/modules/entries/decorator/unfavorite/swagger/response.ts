@@ -10,21 +10,21 @@ export const ResponseSwagger = () => {
         'application/json': {
           examples: {
             not_found_word: {
-              summary: 'Não foi encontrada palavra',
+              summary: 'No word found',
               value: {
                 timestamp: '2025-05-10T20:17:37.186Z',
                 path: '/',
                 status: 400,
-                message: 'Não foi encontrada palavra',
+                message: 'No word found',
               }
             },
             not_found_word_favorite: {
-              summary: 'Não foi encontrada palavra favoritada',
+              summary: 'No word found favorited',
               value: {
                 timestamp: '2025-05-10T20:17:37.186Z',
                 path: '/',
                 status: 400,
-                message: 'Não foi encontrada palavra favoritada',
+                message: 'No word found favorited',
               }
             }
           }

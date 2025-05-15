@@ -3,7 +3,7 @@ import { ResponseErroGlobalSwagger } from 'src/decorator/dto';
 
 export class RespFavoriteEntries400Dto extends ResponseErroGlobalSwagger {
   @ApiProperty({
-    example: 'A palavra em questão já se encontra entre os itens favoritos.',
+    example: 'The word in question is already among the favorite items.',
   })
   message: any;
   @ApiProperty({ example: 400 })
