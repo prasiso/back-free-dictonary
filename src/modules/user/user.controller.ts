@@ -55,6 +55,7 @@ export class UserController {
       params.where.entries = {
         entrie: {
           contains: search,
+          mode: 'insensitive'
         },
       };
     const { rows, count } = await this.history_service.find_all(params);
@@ -101,6 +102,7 @@ export class UserController {
       params.where.entries = {
         entrie: {
           contains: search,
+          mode: 'insensitive'
         },
       };
     const { rows, count } = await this.fav_service.find_all(params);

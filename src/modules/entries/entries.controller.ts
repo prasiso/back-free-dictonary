@@ -43,6 +43,7 @@ export class EntriesController {
       params.where = {
         entrie: {
           contains: search,
+          mode: 'insensitive'
         },
       };
     const { rows, count } = await this.entries.find_all(params);
