@@ -13,7 +13,7 @@ const main = async () => {
         skipDuplicates: true,
       });
     },
-    { timeout: 20000 },
+    { timeout: 300000000 },
   );
 };
 main();
