@@ -21,5 +21,6 @@ export class QueryFindAllGlobalDto {
   @ApiProperty({ type: String, required: false })
   @IsString()
   @IsOptional()
+  @Transform(({ value }) => value.trim())
   search?: string;
 }

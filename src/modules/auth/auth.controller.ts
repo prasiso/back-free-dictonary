@@ -32,7 +32,10 @@ export class AuthController {
   async sign_in(body: SigninDto) {
     const user = await this.user.find_one(undefined, {
       where: {
-        email: body.email,
+        email: {
+          equals: body.email,
+          mode: 'insensitive'
+        },
       },
     });
     if (!user)
