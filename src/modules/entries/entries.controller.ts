@@ -56,7 +56,7 @@ export class EntriesController {
     if (!search || page !== 1) return data;
     const isWord = data.results.some((row) => compare_word(row, search));
     if (isWord) {
-      const ind = data.results.findIndex((ind) => ind === search);
+      const ind = data.results.findIndex((ind) => compare_word(ind, search));
       const item = String(data.results[ind]);
       data.results.splice(ind, 1);
       data.results.splice(0, 0, item);
