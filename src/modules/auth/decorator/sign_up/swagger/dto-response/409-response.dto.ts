@@ -4,7 +4,7 @@ import { ResponseErroGlobalSwagger } from 'src/decorator/dto';
 export class RespSignUp409Dto extends ResponseErroGlobalSwagger {
   @ApiProperty({
     example:
-      'O e-mail informado já está cadastrado em nosso sistema. Por favor, utilize outro e-mail.',
+      'The email address provided is already registered in our system. Please use another email address.',
   })
   message: string;
 }

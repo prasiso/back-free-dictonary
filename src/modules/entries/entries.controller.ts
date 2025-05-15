@@ -76,7 +76,7 @@ export class EntriesController {
       opt = opt_valid_word(user);
     }
     const entrie = await this.entries.find_one(word, opt);
-    if (!entrie) throw new NotFoundException('Não foi encontrada palavra');
+    if (!entrie) throw new NotFoundException('No word found');
     return entrie;
   }
   async find_one(word: string, user: JwtPayload) {
@@ -90,7 +90,7 @@ export class EntriesController {
     } catch {}
 
     if (!entries?.length) {
-      throw new NotFoundException('Não foi encontrada definição para palavra');
+      throw new NotFoundException('No definition found for word');
     }
     const resp = entries.pop();
     resp.meanings.push(...entries.flatMap((item) => item.meanings));
@@ -125,7 +125,7 @@ export class EntriesController {
     });
     if (favorite)
       throw new BadRequestException(
-        'A palavra em questão já se encontra entre os itens favoritos.',
+        'The word in question is already among the favorite items.',
       );
     await this.favorite_service.create({
       id_entrie: entrie.id_entrie,
@@ -139,8 +139,7 @@ export class EntriesController {
       id_entrie: entrie.id_entrie,
       id_user: user.id_user,
     });
-    if (!favorite)
-      throw new NotFoundException('Não foi encontrada palavra favoritada');
+    if (!favorite) throw new NotFoundException('No word found favorited');
     await this.favorite_service.delete({
       id_entries_fav: favorite.id_entries_fav,
     });

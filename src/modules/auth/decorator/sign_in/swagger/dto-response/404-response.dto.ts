@@ -4,7 +4,7 @@ import { ResponseErroGlobalSwagger } from 'src/decorator/dto';
 export class Resp404Dto extends ResponseErroGlobalSwagger {
   @ApiProperty({
     example:
-      'O e-mail informado não foi encontrado em nosso sistema. Por favor, verifique e tente novamente.',
+      'The email address provided was not found in our system. Please check and try again.',
   })
   message: any;
   @ApiProperty({ example: 404 })

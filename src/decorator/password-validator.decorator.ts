@@ -22,7 +22,7 @@ export class PasswordValidatorConstraint
   }
 
   defaultMessage() {
-    return 'A senha deve ter pelo menos 8 caracteres, incluindo uma letra maiúscula, uma letra minúscula, um número e um caractere especial.';
+    return 'The password must be at least 8 characters long, including one uppercase letter, one lowercase letter, one number, and one special character.';
   }
 }
 export function IsValidPassword(opt?: ValidationOptions) {

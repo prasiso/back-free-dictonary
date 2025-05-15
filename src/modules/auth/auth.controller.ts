@@ -23,7 +23,7 @@ export class AuthController {
     });
     if (user)
       throw new ConflictException(
-        'O e-mail informado já está cadastrado em nosso sistema. Por favor, utilize outro e-mail.',
+        'The email address provided is already registered in our system. Please use another email address.',
       );
     const data = await this.user.create(body);
     return await this.auth.sign_in(data);
@@ -37,13 +37,11 @@ export class AuthController {
     });
     if (!user)
       throw new NotFoundException(
-        'O e-mail informado não foi encontrado em nosso sistema. Por favor, verifique e tente novamente.',
+        'The email address provided was not found in our system. Please check and try again.',
       );
     const is_valid_pass = await this.hash.compare(body.password, user.password);
     if (!is_valid_pass)
-      throw new NotFoundException(
-        'As senhas não coincidem. Por favor, tente novamente.',
-      );
+      throw new NotFoundException('Passwords do not match. Please try again.');
     return await this.auth.sign_in(user);
   }
 }

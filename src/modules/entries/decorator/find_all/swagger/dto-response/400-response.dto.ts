@@ -3,7 +3,7 @@ import { ResponseErroGlobalSwagger } from 'src/decorator/dto';
 
 export class RespFindAllEntries400Dto extends ResponseErroGlobalSwagger {
   @ApiProperty({
-    example: ['query page não enviado', 'query limit não enviado'],
+    example: ['query page not sent', 'query limit not sent'],
   })
   message: any;
   @ApiProperty({ example: 400 })
